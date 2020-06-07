@@ -13,7 +13,7 @@ A Component for making text editable with input like features
 
 
 ```
-npm react-text-content-editable
+npm i react-text-content-editable
 ```
 
 ## Usage
