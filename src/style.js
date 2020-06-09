@@ -12,7 +12,11 @@ export const InputWrapper = styled.div`
     * {
     outline: none;
     }
+    [contenteditable="false"] {
+      cursor: not-allowed;
+    }
     .text {
+      background-color: ${props => (props.disabled ? "#f3f3f3" : "white")};
       width: ${props => props.width === 'auto' ? 'auto': 'max-content'};
       text-align: left;
       border-bottom: 2px solid gainsboro;

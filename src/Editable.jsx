@@ -58,7 +58,7 @@ const Editable = ({ onChange, type, maxLength, height, width, value, disabled })
     };
     return (
         <InputContainer width={width}>
-            <InputWrapper width={width}>
+            <InputWrapper width={width} disabled={disabled}>
                 <div
                     className={type}
                     ref={inputRef}
@@ -68,7 +68,6 @@ const Editable = ({ onChange, type, maxLength, height, width, value, disabled })
                     onInput={onKeyUp}
                     onPaste={onPaste}
                     style={{ height: height === 'auto' ? 'auto': `${height}px`, borderBottom: borderBottom, minWidth: 200 }}
-                    disabled={disabled}
                     dangerouslySetInnerHTML={{ __html: data.replace(/\n/g, "<br/>") }}
                 />
             </InputWrapper>
