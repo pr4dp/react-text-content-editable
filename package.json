@@ -4,12 +4,11 @@
   "description": "make content editable that includes features like input text or textarea",
   "main": "build/index.js",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "scripts": {
     "start": "webpack --watch",
-    "build": "webpack",
-    "prepublish": "rm -rf ./build && npm run build"
+    "build": "webpack"
   },
   "author": "Pradeep Kumar",
   "license": "MIT",

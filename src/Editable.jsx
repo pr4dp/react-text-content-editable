@@ -6,6 +6,7 @@ import {
 } from './style'
 const Editable = ({ onChange, type, maxLength, height, width, value, disabled }) => {
     const inputRef = useRef();
+    const [data] = useState(value);
     const [borderBottom, setBorderBottom] = useState("2px solid gainsboro");
     const placeCaretAtEnd = el => {
         el.focus();
