@@ -26,8 +26,8 @@ import Editable from 'react-text-content-editable'
 const App = () => {
   const [text, setText] = useState('')
 
-  const onChange = () => {
-    setText(current)
+  const onChange = (value) => {
+    setText(value)
   }
 
   return (
@@ -40,7 +40,7 @@ const App = () => {
 }
 ```
 
-### input text
+### Input text
 ```js
 <Editable
     type='text'
@@ -49,7 +49,28 @@ const App = () => {
 />
 ```
 
-### textarea
+### Pre Populated value
+```js
+<Editable
+    type='text'
+    maxLength='20'
+    onChange={onChange}
+    disabled={true}
+    value='Pradeep Kumar'
+/>
+```
+
+### Input text disabled
+```js
+<Editable
+    type='text'
+    maxLength='20'
+    onChange={onChange}
+    disabled={true}
+/>
+```
+
+### Textarea
 ```js
 <Editable
     type='textarea'
@@ -58,4 +79,8 @@ const App = () => {
     onChange={onChange}
 />
 ```
+
+
+## Contributing
+We would love some contributions! Check out <a href="https://github.com/pkumar98/react-text-content-editable">this document</a> to get started.
 

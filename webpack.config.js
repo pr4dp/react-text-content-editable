@@ -3,16 +3,19 @@ module.exports = {
     mode: 'production',
     entry: './src/Editable.jsx',
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.join(__dirname, './build'),
         filename: 'index.js',
-        libraryTarget: 'commonjs2' // THIS IS THE MOST IMPORTANT LINE! :mindblow: I wasted more than 2 days until realize this was the line most important in all this guide.
+        library: 'react-text-content-editable', 
+        libraryTarget: 'umd',
+        publicPath: '/build/',
+        umdNamedDefine: true
     },
     module: {
         rules: [
             {
                 test: /\.jsx$/,
                 include: path.resolve(__dirname, 'src'),
-                exclude: /(node_modules|bower_components|build)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -22,7 +25,25 @@ module.exports = {
             }
         ]
     },
+    resolve: { 
+        alias: { 
+            'react': path.resolve(__dirname, './node_modules/react') ,
+            'react-dom': path.resolve(__dirname, './node_modules/react-dom')
+        } 
+    },
     externals: {
-        'react': 'commonjs react' // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
+        // Don't bundle react or react-dom
+        react: {
+            commonjs: "react",
+            commonjs2: "react",
+            amd: "React",
+            root: "React"
+        },
+        "react-dom": {
+            commonjs: "react-dom",
+            commonjs2: "react-dom",
+            amd: "ReactDOM",
+            root: "ReactDOM"
+        }
     }
 };

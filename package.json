@@ -1,19 +1,21 @@
 {
   "name": "react-text-content-editable",
-  "version": "2.0.5",
+  "version": "2.0.7",
   "description": "make content editable that includes features like input text or textarea",
   "main": "build/index.js",
+  "publishConfig": {
+    "access": "restricted"
+  },
   "scripts": {
     "start": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "prepublish": "rm -rf ./build && npm run build"
   },
   "author": "Pradeep Kumar",
   "license": "MIT",
   "peerDependencies": {
-    "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.1.1"
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

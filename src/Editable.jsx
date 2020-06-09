@@ -4,7 +4,7 @@ import {
     InputContainer,
     InputWrapper
 } from './style'
-const Editable = ({ onChange, type, maxLength, height, width }) => {
+const Editable = ({ onChange, type, maxLength, height, width, value, disabled }) => {
     const inputRef = useRef();
     const [borderBottom, setBorderBottom] = useState("2px solid gainsboro");
     const placeCaretAtEnd = el => {
@@ -27,7 +27,9 @@ const Editable = ({ onChange, type, maxLength, height, width }) => {
         }
     };
     const onClick = () => {
-        setBorderBottom("2px solid blue");
+        if (!disabled) {
+            setBorderBottom("2px solid blue");
+        }
     };
     const onBlur = () => {
         setBorderBottom("2px solid gainsboro");
@@ -59,12 +61,14 @@ const Editable = ({ onChange, type, maxLength, height, width }) => {
                 <div
                     className={type}
                     ref={inputRef}
-                    contentEditable={true}
+                    contentEditable={!disabled}
                     onClick={onClick}
                     onBlur={onBlur}
                     onInput={onKeyUp}
                     onPaste={onPaste}
                     style={{ height: height === 'auto' ? 'auto': `${height}px`, borderBottom: borderBottom, minWidth: 200 }}
+                    disabled={disabled}
+                    dangerouslySetInnerHTML={{ __html: data.replace(/\n/g, "<br/>") }}
                 />
             </InputWrapper>
         </InputContainer>
@@ -74,7 +78,9 @@ const Editable = ({ onChange, type, maxLength, height, width }) => {
 Editable.defaultProps = {
     width: 'auto',
     height: 'auto',
-    type: 'text'
+    type: 'text',
+    value: "",
+    disabled: false
 };
 
 Editable.propTypes = {
@@ -82,6 +88,8 @@ Editable.propTypes = {
     height: PropTypes.string.isRequired,
     maxLength: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
+    value: PropTypes.string
 }
 
 export default Editable;
