@@ -1,13 +1,22 @@
 import React, { useRef, useState } from "react";
-import PropTypes from 'prop-types';
-import {
-    InputContainer,
-    InputWrapper
-} from './style'
-const Editable = ({ onChange, type, maxLength, height, width, value, disabled }) => {
+import PropTypes from "prop-types";
+import { Wrapper, RootWrapper, InputContainer, InputWrapper } from "./style";
+const Editable = ({
+                      onChange,
+                      type,
+                      maxLength,
+                      height,
+                      width,
+                      value,
+                      readOnly,
+                      tag,
+                      minWidth
+                  }) => {
     const inputRef = useRef();
     const [data] = useState(value);
-    const [borderBottom, setBorderBottom] = useState("2px solid gainsboro");
+    const [borderBottom, setBorderBottom] = useState("2px solid white");
+    const [inputWidth, setInputWidth] = useState(width);
+    const [InputHeight, setInputHeight] = useState(height);
     const placeCaretAtEnd = el => {
         el.focus();
         if (
@@ -27,13 +36,18 @@ const Editable = ({ onChange, type, maxLength, height, width, value, disabled })
             textRange.select();
         }
     };
-    const onClick = () => {
-        if (!disabled) {
-            setBorderBottom("2px solid blue");
+    const onFocus = () => {
+        if (!readOnly) {
+            setInputWidth(width);
+            setInputHeight(height);
+            setBorderBottom("2px solid #1DA1F1");
         }
     };
+
     const onBlur = () => {
-        setBorderBottom("2px solid gainsboro");
+        setBorderBottom("2px solid white");
+        setInputHeight("auto");
+        setInputWidth("auto");
     };
     const onKeyUp = function(e) {
         const { textContent } = e.currentTarget;
@@ -56,40 +70,49 @@ const Editable = ({ onChange, type, maxLength, height, width, value, disabled })
         inputRef.current.innerHTML = "";
         document.execCommand("insertHTML", false, mData);
     };
+    const CustomTag = `${tag}`;
     return (
-        <InputContainer width={width}>
-            <InputWrapper width={width} disabled={disabled}>
-                <div
-                    className={type}
-                    ref={inputRef}
-                    contentEditable={!disabled}
-                    onClick={onClick}
-                    onBlur={onBlur}
-                    onInput={onKeyUp}
-                    onPaste={onPaste}
-                    style={{ height: height === 'auto' ? 'auto': `${height}px`, borderBottom: borderBottom, minWidth: 200 }}
-                    dangerouslySetInnerHTML={{ __html: data.replace(/\n/g, "<br/>") }}
-                />
-            </InputWrapper>
-        </InputContainer>
+        <Wrapper>
+            <RootWrapper>
+                <InputContainer width={width}>
+                    <InputWrapper width={inputWidth} readOnly={readOnly}>
+                        <CustomTag
+                            className={type}
+                            ref={inputRef}
+                            contentEditable={!readOnly}
+                            onFocus={onFocus}
+                            onBlur={onBlur}
+                            onInput={onKeyUp}
+                            onPaste={onPaste}
+                            style={{
+                                height: InputHeight === "auto" ? "auto" : `${InputHeight}px`,
+                                border: borderBottom,
+                                minWidth: minWidth
+                            }}
+                            dangerouslySetInnerHTML={{ __html: data.replace(/\n/g, "<br/>") }}
+                        />
+                    </InputWrapper>
+                </InputContainer>
+            </RootWrapper>
+        </Wrapper>
     );
 };
 
 Editable.defaultProps = {
-    width: 'auto',
-    height: 'auto',
-    type: 'text',
+    width: "auto",
+    height: "auto",
+    type: "text",
     value: "",
-    disabled: false
+    readOnly: false
 };
 
 Editable.propTypes = {
+    value: PropTypes.string,
     width: PropTypes.string.isRequired,
     height: PropTypes.string.isRequired,
     maxLength: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    disabled: PropTypes.bool,
-    value: PropTypes.string
-}
+    readOnly: PropTypes.bool
+};
 
 export default Editable;

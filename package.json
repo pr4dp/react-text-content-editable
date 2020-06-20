@@ -1,6 +1,6 @@
 {
   "name": "react-text-content-editable",
-  "version": "2.0.8",
+  "version": "3.0.2",
   "description": "make content editable that includes features like input text or textarea",
   "main": "build/index.js",
   "publishConfig": {

@@ -1,20 +1,16 @@
 A Component for making text editable with input like features
 
-## react-text-content-editable
-
-```js
-<Editable
-    type='text'
-    maxLength='20'
-    onChange={onChange}
-/>
-```
 ## Installation
 
 
 ```
 npm i react-text-content-editable
 ```
+
+## Demo
+
+<a href="https://mpcv6.csb.app/" target="_blank">https://mpcv6.csb.app/ </a><br/>
+<a href="https://mpcv6.codesandbox.io/" target="_blank">https://mpcv6.codesandbox.io/ </a>
 
 ## Usage
 
@@ -32,53 +28,39 @@ const App = () => {
 
   return (
         <Editable 
+            tag='p'
             type='text'
             maxLength='20'
             onChange={onChange}
+            value={text}
          />
   )
 }
 ```
 
-### Input text
+### Editable Text
 ```js
 <Editable
+    tag="h1"
     type='text'
     maxLength='20'
     onChange={onChange}
+    value={data}
 />
 ```
 
-### Pre Populated value
+
+### Editable Text Read only
 ```js
 <Editable
+    tag="h1"
     type='text'
     maxLength='20'
     onChange={onChange}
-    disabled={true}
-    value='Pradeep Kumar'
+    readOnly={true}
 />
 ```
 
-### Input text disabled
-```js
-<Editable
-    type='text'
-    maxLength='20'
-    onChange={onChange}
-    disabled={true}
-/>
-```
-
-### Textarea
-```js
-<Editable
-    type='textarea'
-    height='100'
-    maxLength='20'
-    onChange={onChange}
-/>
-```
 
 
 ## Contributing
